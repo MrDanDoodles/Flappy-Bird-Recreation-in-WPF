@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Diagnostics.PerformanceData;
@@ -19,8 +19,12 @@ namespace FlappyBird
     {
         //Variable Initialization
         public int _playerYPosition = 300;
+        private string birdImageLocation = @"C:\Users\1211d\Desktop\Computer Science\Personal Projects\C#\Flappy Bird Clone\FlappyBird\FlappyBird\images\FlappyBird_Bird.png"; //Image for the bird
+
 
         public Ellipse Shape { get; private set; }
+
+        public Rectangle birdShape { get; private set; }
 
         // - - - - - - CONSTRUCTOR - - - - - - 
 
@@ -29,11 +33,13 @@ namespace FlappyBird
             // Initialize the Ellipse representing the bird
             Shape = new Ellipse
             {
-                Width = 50,
-                Height = 50,
-                Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)), // Red fill
-                Stroke = Brushes.Black,
-                StrokeThickness = 1
+                Width = 75,
+                Height = 75,
+                Fill = new ImageBrush
+                {
+                    ImageSource = new ImageSourceConverter().ConvertFromString(birdImageLocation) as ImageSource
+                },
+                
             };
         }
 
