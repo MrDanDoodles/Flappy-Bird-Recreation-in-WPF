@@ -1,4 +1,4 @@
-﻿using System.Text;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -26,6 +26,8 @@ namespace FlappyBird
         string background3 = @"C:\Users\1211d\Desktop\Computer Science\Personal Projects\C#\Flappy Bird Clone\FlappyBird\FlappyBird\images\Clouds_BuildingsFlappy.png"; //Clouds and Buildings
         string background4 = @"C:\Users\1211d\Desktop\Computer Science\Personal Projects\C#\Flappy Bird Clone\FlappyBird\FlappyBird\images\SkyFlappy.png"; //Sky
 
+        string birdImage = @"C:\Users\1211d\Desktop\Computer Science\Personal Projects\C#\Flappy Bird Clone\FlappyBird\FlappyBird\images\FlappyBird_Bird.png"; //Image for the bird
+
         // - - - - - CONSTRUCTOR - - - - - 
         public MainWindow()
         {
@@ -33,7 +35,7 @@ namespace FlappyBird
 
             // - - - - - BACKGROUND - - - - - 
             //Creating the Background Grid
-            var mainGrid = new Grid();
+            //var mainGrid = new Grid();
 
             //FLOOR
             var floor = new Rectangle
@@ -45,7 +47,10 @@ namespace FlappyBird
                     TileMode = TileMode.Tile,
                 }
             };
-            Grid.SetZIndex(floor, 3); //END FLOOR
+            Grid.SetZIndex(floor, 4);
+            //Setting them into their rows and columns
+            Grid.SetColumnSpan(floor, 5);
+            Grid.SetRowSpan(floor, 5); //END FLOOR
 
             //TREES
             var trees = new Rectangle
@@ -57,7 +62,10 @@ namespace FlappyBird
                     TileMode = TileMode.Tile,
                 }
             };
-            Grid.SetZIndex(trees, 2); //END TREES
+            Grid.SetZIndex(trees, 3); 
+            //Setting them into their rows and columns
+            Grid.SetColumnSpan(trees, 5);
+            Grid.SetRowSpan(trees, 5); //END TREES
 
             //CLOUDS AND BUILDINGS
             var clouds_buildings = new Rectangle
@@ -69,7 +77,10 @@ namespace FlappyBird
                     TileMode = TileMode.Tile,
                 }
             };
-            Grid.SetZIndex(clouds_buildings, 1); //END CLOUDS AND BUILDINGS
+            Grid.SetZIndex(clouds_buildings, 2); 
+            //Setting them into their rows and columns
+            Grid.SetColumnSpan(clouds_buildings, 5);
+            Grid.SetRowSpan(clouds_buildings, 5); //END CLOUDS AND BUILDINGS
 
             //SKY
             var sky = new Rectangle
@@ -81,7 +92,10 @@ namespace FlappyBird
                     TileMode = TileMode.Tile,
                 }
             };
-            Grid.SetZIndex(floor, 0); //END SKY
+            Grid.SetZIndex(sky, 1); 
+            //Setting them into their rows and columns
+            Grid.SetColumnSpan(sky, 5);
+            Grid.SetRowSpan(sky, 5); //END SKY
 
             //Adding all layers to the Grid
             mainGrid.Children.Add(floor);
@@ -104,10 +118,11 @@ namespace FlappyBird
             Bird bird = new Bird();
 
             //Setting the Bird on the Canvas
-            Canvas.SetLeft(bird.Shape, 100);
-            Canvas.SetBottom(bird.Shape, 400);
             GameCanvas.Children.Add(bird.Shape);
-            Grid.SetZIndex(bird.Shape, 100);
+            Canvas.SetLeft(bird.Shape, 75);
+            Canvas.SetBottom(bird.Shape, 300);
+
+            Grid.SetZIndex(GameCanvas, 5);
 
             // - - - - - SCORE BOARD - - - - - 
             CounterText.Text = ("Score: " + _counter).ToString();
