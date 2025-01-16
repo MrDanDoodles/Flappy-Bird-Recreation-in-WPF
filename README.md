@@ -3,3 +3,6 @@ This project is a faithful recreation of the iconic game Flappy Bird, developed 
 
 First Commit:
 Initial setup: Added project structure, parallax background, and placeholder ball for the bird.
+
+Second Commit:
+Reworked the Bird class and added them to the main grid to appear on the screen. Reworked the background to also work with the canvas (Where the bird object is a child of).
