@@ -1,12 +1,14 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Diagnostics.PerformanceData;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
 /*
@@ -18,40 +20,41 @@ namespace FlappyBird
     public class Bird
     {
         //Variable Initialization
-        public int _playerYPosition = 300;
-        private string birdImageLocation = @"C:\Users\1211d\Desktop\Computer Science\Personal Projects\C#\Flappy Bird Clone\FlappyBird\FlappyBird\images\FlappyBird_Bird.png"; //Image for the bird
+        public Rectangle Shape {  get; private set; }
+        public double startingYPosition = 300;
 
-
-        public Ellipse Shape { get; private set; }
-
-        public Rectangle birdShape { get; private set; }
-
-        // - - - - - - CONSTRUCTOR - - - - - - 
-
-        public Bird()
+        //Constructor
+        public Bird(string imageAddress)
         {
             // Initialize the Ellipse representing the bird
-            Shape = new Ellipse
+            Shape = new Rectangle
             {
                 Width = 75,
                 Height = 75,
                 Fill = new ImageBrush
                 {
-                    ImageSource = new ImageSourceConverter().ConvertFromString(birdImageLocation) as ImageSource
+                    ImageSource = new ImageSourceConverter().ConvertFromString(imageAddress) as ImageSource
                 },
-                
             };
+            
         }
 
-        // - - - - - - FUNCTIONS - - - - - - 
-        public void PlayerUp(object sender, KeyEventArgs e)
+        // - - - - - FUNCTIONS - - - - - 
+        public void birdGravity(Rectangle player, int speed, double offsetY = 2)
         {
-            if (e.Key == Key.W)
+            //Ensure that the player has a fill
+            if (player.Fill is ImageBrush brush)
             {
-                _playerYPosition += 10;
+                //Creating Animation
+                var birdAnimation = new RectAnimation
+                {
+                    From = new Rect(0, 0, 1, 1),           // Starting position
+                    To = new Rect(0, offsetY, 1, 1),       // Scroll by offsetY
+                    Duration = new Duration(TimeSpan.FromSeconds(speed)), // Animation speed
+                };
+                // Apply the animation to the ImageBrush
+                brush.BeginAnimation(ImageBrush.ViewportProperty, birdAnimation);
             }
         }
-
-        
     }
 }
